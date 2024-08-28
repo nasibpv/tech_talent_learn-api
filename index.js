@@ -13,7 +13,11 @@ const logic=require('./service/logic')
 const server=express()
 
 // cors is method
-server.use(cors({origin:'http://localhost:5173'}))
+server.use(cors({
+    origin:['https://content-client.vercel.app'],
+    methods:["GET", "POST", "PUT", "DELETE"],
+    credentials:true
+}))
 
 // convert json
 server.use(express.json())
