@@ -32,16 +32,17 @@ server.listen(8000,()=>{
 // nest intergratioon
 // integration using laberary is mongoose
 // resovle
+ 
 // ! import json web token
-const jwt=require("jsonwebtoken")
+const JWT_SECRET_KEY=require("jsonwebtoken")
 // !middleware
 const jwtmiddleware=(req,res,next)=>{
     try{
-        console.log('jwt');
+        console.log('JWT_SECRET_KEY');
         const token=req.headers['access-token']
         // const token=request.body.token
     // token verification (verify method using)
-   const data= jwt.verify(token,'supersecretkey123')
+   const data= JWT_SECRET_KEY.verify(token,'supersecretkey123')
    console.log(data);
    next()
 }
@@ -51,35 +52,43 @@ catch{
         status:false,
         message:"please login"
     })
-    
 }
 }
 
 server.get('/userLogin',(req,res)=>{
+    console.log('hello api');
+    
     logic.allUser().then(data=>{
         res.status(data.statusCode).json(data)
     })
 })
+
 server.post('/loginForm',(req,res)=>{
+    console.log(req);
+    
     logic.login(req.body.userId,req.body.password).then(data=>{
         res.status(data.statusCode).json(data)
     })
 })
+
 server.get('/staff',(req,res)=>{
     logic.staff().then(data=>{
         res.status(data.statusCode).json(data)
     })
 })
+
 server.get('/student',(req,res)=>{
     logic.student().then(data=>{
         res.status(data.statusCode).json(data)
     })
 })
+
 server.get('/leave',(req,res)=>{
     logic.leave().then(data=>{
         res.status(data.statusCode).json(data)
     })
 })
+
 server.get('/request',(req,res)=>{
     logic.request().then(data=>{
         res.status(data.statusCode).json(data)
@@ -92,12 +101,14 @@ server.post('/addStaffs',jwtmiddleware,(req,res)=>{
         res.status(data.statusCode).json(data)
     })
 })
+
 server.post('/updateStaffDetails',jwtmiddleware,(req,res)=>{
     logic.updateStaff(req.body.staffId,req.body.name,req.body.age,req.body.gender,req.body.dob,req.body.address,req.body.place,req.body.pin,req.body.email,req.body.phonenumber,req.body.password,req.body.cource)
     .then(data=>{
         res.status(data.statusCode).json(data)
     })
 })
+
 server.post('/reply',jwtmiddleware,(req,res)=>{
     logic.reply(req.body.id,req.body.date,req.body.day,req.body.reply).then(data=>{
         res.status(data.statusCode).json(data)
@@ -115,12 +126,14 @@ server.get('/editStudent/:id',(req,res)=>{
         res.status(result.statusCode).json(result)
     })
 })
+
 server.post('/updateStudent',jwtmiddleware,(req,res)=>{
     console.log('hiii');
     logic.updateStudent(req.body.studentId,req.body.name,req.body.age,req.body.gender,req.body.cource,req.body.address,req.body.dob,req.body.place,req.body.pin,req.body.phonenumber,req.body.email,req.body.password,req.body.batchId).then(data=>{
         res.status(data.statusCode).json(data)
     })
 })
+
 server.delete('/deleteStudent/:id',jwtmiddleware,(req,res)=>{
     logic.deleteStudent(req.params.id).then(result=>{
         res.status(result.statusCode).json(result)

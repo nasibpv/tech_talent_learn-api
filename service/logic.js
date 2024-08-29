@@ -1,7 +1,7 @@
 // import db file 
 const { deleteModel } = require('mongoose')
 const db = require('./db')
-const jwt=require('jsonwebtoken')
+const JWT_SECRET_KEY=require('jsonwebtoken')
 const allUser = () => {
     return db.User.find().then(result => {
         if (result) {
@@ -24,7 +24,7 @@ const login = (userId,password) => {
         
         if(result){
         if (result.password==password) {
-            const token =jwt.sign({userId},'supersecretkey123')
+            const token =JWT_SECRET_KEY.sign({userId},'supersecretkey123')
             return {
                 statusCode: 200,
                 message:"Login Succeessfully ",
