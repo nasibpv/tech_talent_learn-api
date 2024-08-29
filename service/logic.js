@@ -12,7 +12,7 @@ const allUser = () => {
         }
         else {
             return {
-                statusCode: 404,
+                statusCode: 202,
                 message: "user not involve"
             }
         }
