@@ -4,7 +4,7 @@ const mongoose=require('mongoose')
 
 // next integraton method using "connect"
 
-mongoose.connect('mongodb://127.0.0.1:27017/techInstitute')
+mongoose.connect('mongodb+srv://nasibnpv:Kg87pomg1TnfyVst@summitlist.sdaoc.mongodb.net/Tech_learn?retryWrites=true&w=majority')
 
 // Model create
 
